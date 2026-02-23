@@ -4,6 +4,8 @@ import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import axios from 'axios';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
 interface ChatRoomProps {
   roomId: string;
   username: string;
@@ -18,7 +20,8 @@ export default function ChatRoom({ roomId, username, onLeave }: ChatRoomProps) {
 
   useEffect(() => {
     const client = new Client({
-      webSocketFactory: () => new SockJS(`${window.location.origin}/ws`),
+      webSocketFactory: () =>
+        new SockJS(API_BASE ? `${API_BASE}/ws` : `${window.location.origin}/ws`),
       onConnect: () => {
         client.subscribe(`/topic/chat/${roomId}`, (msg) => {
           setMessages((prev) => [...prev, JSON.parse(msg.body)]);
@@ -38,7 +41,7 @@ export default function ChatRoom({ roomId, username, onLeave }: ChatRoomProps) {
     stompClient.current = client;
     client.activate();
 
-    axios.get(`/chat/${roomId}`).then((res) => {
+    axios.get(`${API_BASE}/chat/${roomId}`).then((res) => {
       setMessages(res.data.reverse());
     });
 

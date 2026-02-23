@@ -9,8 +9,11 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/ws': { target: 'http://localhost:8081', ws: true },
-      '/chat': 'http://localhost:8081',
+      '/ws': {
+        target: process.env.VITE_API_BASE_URL || 'http://localhost:8081',
+        ws: true,
+      },
+      '/chat': process.env.VITE_API_BASE_URL || 'http://localhost:8081',
     },
   },
 })
