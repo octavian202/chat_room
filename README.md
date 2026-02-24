@@ -108,3 +108,23 @@ VITE_API_BASE_URL=http://localhost:8081
 ### Run both
 
 Start the backend first, then the frontend. Enter a username, choose a room ID, and begin chatting.
+
+---
+
+## Deployment
+
+### Backend with Docker
+
+The backend includes a multi-stage Dockerfile for easy containerized deployment:
+
+```bash
+cd server
+docker build -t chat-room-server .
+docker run -p 8081:8081 chat-room-server
+```
+
+The image uses Maven for the build stage and Eclipse Temurin 21 JRE for the runtime, keeping the final image lean. The server listens on port 8081.
+
+### Render.com
+
+This app is deployed on [Render.com](https://render.com). The backend runs as a Web Service (containerized from the Dockerfile), and the frontend is served as a Static Site. Configure the frontend’s `VITE_API_BASE_URL` to point at the deployed backend URL so the app connects to the live API and WebSocket endpoint.
