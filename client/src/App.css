@@ -23,8 +23,93 @@
   font-size: 1.75rem;
 }
 
+.form-error {
+  margin-bottom: 1rem;
+  padding: 0.6em 1em;
+  border-radius: 8px;
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  font-size: 0.9rem;
+}
+
+@media (prefers-color-scheme: light) {
+  .form-error {
+    background: rgba(220, 38, 38, 0.1);
+    color: #dc2626;
+  }
+}
+
+.error-boundary {
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-boundary h2 {
+  color: #f87171;
+  margin-bottom: 0.5rem;
+}
+
+.error-boundary p {
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.error-banner {
+  padding: 0.6em 1rem;
+  font-size: 0.9rem;
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  border-bottom: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+@media (prefers-color-scheme: light) {
+  .error-banner {
+    background: rgba(220, 38, 38, 0.1);
+    color: #dc2626;
+    border-bottom-color: rgba(220, 38, 38, 0.2);
+  }
+}
+
+.messages-loading {
+  text-align: center;
+  padding: 2rem;
+  opacity: 0.8;
+}
+
+.messages-no-more,
+.messages-loading-older {
+  text-align: center;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.messages-no-more {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.messages-loading-older {
+  color: #94a3b8;
+}
+
+@media (prefers-color-scheme: light) {
+  .messages-no-more,
+  .messages-loading-older {
+    color: #64748b;
+  }
+}
+
+.room-entry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
 .room-entry .greeting {
-  margin: 0 0 0.5rem;
+  margin: 0;
   opacity: 0.85;
 }
 
@@ -96,7 +181,9 @@
   color: #f87171;
 }
 
-.chat-header button {
+.chat-header-actions {
+  display: flex;
+  gap: 0.5rem;
   margin-left: auto;
 }
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
 import Login from './components/Login';
 import RoomEntry from './components/RoomEntry';
 import ChatRoom from './components/ChatRoom';
@@ -9,24 +10,39 @@ function App() {
   const [roomId, setRoomId] = useState<string | null>(null);
 
   if (!username) {
-    return <Login onLogin={setUsername} />;
+    return (
+      <ErrorBoundary>
+        <Login onLogin={setUsername} />
+      </ErrorBoundary>
+    );
   }
+
+  const onLogout = () => {
+    setUsername('');
+    setRoomId(null);
+  };
 
   if (!roomId) {
     return (
-      <RoomEntry
-        username={username}
-        onEnter={(id) => setRoomId(id)}
-      />
+      <ErrorBoundary>
+        <RoomEntry
+          username={username}
+          onEnter={(id) => setRoomId(id)}
+          onLogout={onLogout}
+        />
+      </ErrorBoundary>
     );
   }
 
   return (
-    <ChatRoom
-      username={username}
-      roomId={roomId}
-      onLeave={() => setRoomId(null)}
-    />
+    <ErrorBoundary>
+      <ChatRoom
+        username={username}
+        roomId={roomId}
+        onLeave={() => setRoomId(null)}
+        onLogout={onLogout}
+      />
+    </ErrorBoundary>
   );
 }
 
